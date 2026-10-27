@@ -8,8 +8,6 @@ Mini sistema desarrollado en React para la Actividad 8. Incluye autenticación s
 - Perez Cruz Maria Isabel
 - Canseco Reyes Juan Carlos
 
-> Los commits conservan el autor de Git de cada integrante.
-
 ## API utilizada
 
 - Autenticación: [DummyJSON Auth](https://dummyjson.com/auth/login)
@@ -31,6 +29,10 @@ Mini sistema desarrollado en React para la Actividad 8. Incluye autenticación s
 npm install
 npm run dev
 ```
+
+## Link del proyecto
+
+http://74.208.173.233/t3_act8_eq04/
 
 Credenciales de prueba:
 
