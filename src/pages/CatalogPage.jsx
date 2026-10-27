@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import ProductModal from '../components/ProductModal'
 import ProductTable from '../components/ProductTable'
 import Pagination from '../components/Pagination'
@@ -22,6 +22,8 @@ export default function CatalogPage({ user }) {
   const [retryTick, setRetryTick] = useState(0)
   const [modalProduct, setModalProduct] = useState(undefined)
   const [notice, setNotice] = useState('')
+  const skipHistoryRef = useRef(false)
+  const initialHistoryRef = useRef(true)
 
   useEffect(() => {
     getProductCategories().then(setCategories).catch(() => setCategories([]))
@@ -32,8 +34,29 @@ export default function CatalogPage({ user }) {
     if (page > 1) query.set('page', page)
     if (search) query.set('search', search)
     if (category) query.set('category', category)
-    window.history.replaceState({}, '', `${window.location.pathname}?${query}`)
+    const nextUrl = `${window.location.pathname}?${query}`
+    if (skipHistoryRef.current || initialHistoryRef.current) {
+      window.history.replaceState({}, '', nextUrl)
+      skipHistoryRef.current = false
+      initialHistoryRef.current = false
+    } else if (window.location.search !== `?${query}`) {
+      window.history.pushState({}, '', nextUrl)
+    }
   }, [page, pageSize, search, category])
+
+  useEffect(() => {
+    function handleHistoryChange() {
+      const currentParams = new URLSearchParams(window.location.search)
+      skipHistoryRef.current = true
+      setSearch(currentParams.get('search') || '')
+      setCategory(currentParams.get('category') || '')
+      setPageSize(Number(currentParams.get('limit')) || 10)
+      setPage(Number(currentParams.get('page')) || 1)
+    }
+
+    window.addEventListener('popstate', handleHistoryChange)
+    return () => window.removeEventListener('popstate', handleHistoryChange)
+  }, [])
 
   useEffect(() => {
     const controller = new AbortController()
