@@ -4,10 +4,11 @@ Mini sistema desarrollado en React para la Actividad 8. Incluye autenticación s
 
 ## Integrantes
 
-- Integrante 1: **[ESCRIBIR NOMBRE COMPLETO]**
-- Integrante 2: **[ESCRIBIR NOMBRE COMPLETO]**
+- Navarro Vazquez Jonathan de Jesus
+- Perez Cruz Maria Isabel
+- Canseco Reyes Juan Carlos
 
-> Completar los nombres antes de entregar. Los commits conservan el autor de Git de cada integrante.
+> Los commits conservan el autor de Git de cada integrante.
 
 ## API utilizada
 
